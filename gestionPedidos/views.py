@@ -109,9 +109,26 @@ def guardarReserva(request):
 @user_passes_test(esBibliotecario,login_url='sinPermisos')
 def catalogo(request):
 
-    return render(request,"biblioteca/catalogo.html")
+    librosInstancias=request.user.biblioteca.all()[0].libroInstancia.all()
+
+    
+    return render(request,"biblioteca/catalogo.html",{"lista":librosInstancias})
 
 @login_required
 @user_passes_test(esBibliotecario,login_url='sinPermisos')
 def registrarDevolucion(request):
-    return render(request,"biblioteca/registrarDevolucion.html")
+
+
+    if request.method=="POST":
+        libro= request.POST["libro"]
+        instancia= LibroInstancias.objects.filter(id=libro)[0]
+        instancia.estado="D"
+        instancia.fecha_devolucion= None
+        instancia.cliente= None
+        instancia.save()
+        
+
+    librosInstancias=request.user.biblioteca.all()[0].libroInstancia.filter(estado="N")
+
+    
+    return render(request,"biblioteca/registrarDevolucion.html",{"lista":librosInstancias})

@@ -23,7 +23,7 @@ class LibroInstancias(models.Model):
     editorial=models.CharField(max_length=50)
     fecha_devolucion = models.DateField(null=True, blank=True)
     cliente= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,related_name='libroInstancia')
-    biblioteca= models.ForeignKey("Bibliotecas",on_delete=models.SET_NULL,null=True, blank=True)
+    biblioteca= models.ForeignKey("Bibliotecas",on_delete=models.SET_NULL,null=True, blank=True,related_name='libroInstancia')
 
     ESTADO = (
         ('D', 'Disponible'),
@@ -42,6 +42,6 @@ class Bibliotecas(models.Model):
     nombre = models.CharField(max_length=30)
     direccion= models.CharField(max_length=50)
     telefono= models.CharField(max_length=7)
-
+    userdb= models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.SET_NULL, null=True, blank=True,related_name='biblioteca')
     def __str__(self):
         return "nombre: %s | telefono: %s | direccion: %s"%(self.nombre, self.telefono, self.direccion)

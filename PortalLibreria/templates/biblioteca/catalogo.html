@@ -14,13 +14,6 @@
       
   <div class="container">
 
-    <div class="md-form active-cyan-2 mb-3" style="margin-top: 40px;padding: 0px;">
-        <form action="{% url 'buscarLibro' %}" method="POST">
-          {% csrf_token %}
-          <input class="form-control" type="text" placeholder="Buscar por titulo" aria-label="Search" name="busqueda">
-        </form>
-      </div>
-
   <div class="row">
 		<table class="table table-bordered">
     <thead>
@@ -32,9 +25,7 @@
       </tr>
     </thead>
     <tbody>
-      {% for sublista in lista %}
-      {% for libro in sublista %}
-      
+      {% for libro in lista %}
       <tr>
         <td>{{libro.libro.titulo}}</td>
         <td>{{libro.libro.autor}}</td>
@@ -46,7 +37,7 @@
         {% endif %}
       </tr>
       
-      {% endfor %}  
+      
       {% endfor %}  
     </tbody>
   </table>

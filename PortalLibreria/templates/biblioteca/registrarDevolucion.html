@@ -24,15 +24,13 @@
       <tr>
         <th>Cliente </th>
         <th>Titulo</th>
-        <th>fecha prestamo</th>
+        <th>fecha devolucion</th>
         <th>fecha expirada</th>
         <th>registrar devolución</th>
       </tr>
     </thead>
     <tbody>
-      {% for sublista in lista %}
-      {% for libro in sublista %}
-      
+      {% for libro in lista %}
       <tr>
         <td>{{libro.cliente}}</td>
         <td>{{libro.libro.titulo}}</td>
@@ -42,10 +40,13 @@
         {% else %}
         <td style="background-color: green;">no</td>
         {% endif %}
-        <td><button type="button" class="btn btn-success">Registrar devolución</button></td>
-      </tr>
       
-      {% endfor %}  
+        <form action="{% url 'registrarDevolucion' %}" method="POST">
+          {% csrf_token %}
+          <td><button type="submit" name="libro" value="{{libro.id}}" class="btn btn-success">Registrar Devolucion</button></td>
+        </form>
+
+      </tr>
       {% endfor %}  
     </tbody>
   </table>
