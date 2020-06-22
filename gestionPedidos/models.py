@@ -15,11 +15,11 @@ class Autores(models.Model):
     apellido= models.CharField(max_length=30)
 
     def __str__(self):
-        return "nombre y apellido: %s %s"%(self.nombre, self.apellido)
+        return "%s %s"%(self.nombre, self.apellido)
 
 
 class LibroInstancias(models.Model):
-    libro = models.ForeignKey('Libros', on_delete=models.SET_NULL, null=True)
+    libro = models.ForeignKey('Libros', on_delete=models.SET_NULL, null=True,related_name='libroInstancia')
     editorial=models.CharField(max_length=50)
     fecha_devolucion = models.DateField(null=True, blank=True)
     cliente= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,related_name='libroInstancia')

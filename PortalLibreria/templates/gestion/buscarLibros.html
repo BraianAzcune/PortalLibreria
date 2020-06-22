@@ -10,8 +10,12 @@
 <!------ Include the above in your HEAD tag ---------->
 
 <div class="container">
-  <div class="md-form active-cyan-2 mb-3">
-    <input class="form-control" type="text" placeholder="Buscar Libro" aria-label="Search">
+
+  <div class="md-form active-cyan-2 mb-3" style="margin-top: 40px;padding: 0px;">
+    <form action="{% url 'buscarLibro' %}" method="POST">
+      {% csrf_token %}
+      <input class="form-control" type="text" placeholder="Buscar por titulo" aria-label="Search" name="busqueda">
+    </form>
   </div>
       
   <div class="row">
@@ -20,29 +24,26 @@
       <tr>
         <th>Titulo </th>
         <th>Biblioteca</th>
-        <th>Fecha de Devolucion</th>
+        <th>autor</th>
         <th>Boton</th>
       </tr>
     </thead>
     <tbody>
+      {% for sublista in lista %}
+      {% for libro in sublista %}
+      {% if libro.estado == "D" %}
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td >01/11/2121</td>
-        <td><button type="button" class="btn btn-danger">Atrasado</button></td>
+        <td>{{libro.libro.titulo}}</td>
+        <td>{{libro.biblioteca.nombre}}</td>
+        <td >{{libro.libro.autor}}</td>
+        <form action="{% url 'guardarReserva' %}" method="POST">
+          {% csrf_token %}
+          <td><button type="submit" name="libro" value="{{libro.id}}" class="btn btn-danger">Reservar</button></td>
+        </form>
       </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td >01/11/2121</td>
-        <td><button type="button" class="btn btn-danger">Atrasado</button></td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>01/11/2121</td>
-        <td><button type="button" class="btn btn-danger">Atrasado</button></td>
-      </tr>
+      {% endif %}
+      {% endfor %}  
+      {% endfor %}  
     </tbody>
   </table>
 	</div>
