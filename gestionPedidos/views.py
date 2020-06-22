@@ -8,3 +8,8 @@ def misLibros(request):
     
     
     return render(request,"gestion/misLibros.html")
+
+
+
+def buscarLibro(request):
+    pass
