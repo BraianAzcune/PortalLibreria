@@ -22,7 +22,7 @@ class LibroInstancias(models.Model):
     libro = models.ForeignKey('Libros', on_delete=models.SET_NULL, null=True)
     editorial=models.CharField(max_length=50)
     fecha_devolucion = models.DateField(null=True, blank=True)
-    cliente= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
+    cliente= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,related_name='libroInstancia')
     biblioteca= models.ForeignKey("Bibliotecas",on_delete=models.SET_NULL,null=True, blank=True)
 
     ESTADO = (

@@ -17,28 +17,22 @@
         <th>Titulo </th>
         <th>Biblioteca</th>
         <th>Fecha de Devolucion</th>
-        <th>Boton</th>
+        <th>Estado</th>
       </tr>
     </thead>
     <tbody>
+      {% for libro in libros %}
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td >01/11/2121</td>
+        <td>{{libro.libro.titulo}}</td>
+        <td>{{libro.biblioteca.nombre}}</td>
+        <td >{{libro.fecha_devolucion}}</td>
+        {% if libro.fecha_devolucion < datetime.now %}
         <td><button type="button" class="btn btn-danger">Atrasado</button></td>
+        {% else %}
+        <td><button type="button" class="btn btn-warning">Reservado</button></td>
+        {% endif %}
       </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td >01/11/2121</td>
-        <td><button type="button" class="btn btn-danger">Atrasado</button></td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>01/11/2121</td>
-        <td><button type="button" class="btn btn-danger">Atrasado</button></td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
 	</div>
