@@ -1,13 +1,5 @@
 from django.db import models
-
-class Clientes(models.Model):
-    nombre= models.CharField(max_length=30)
-    direccion= models.CharField(max_length=50)
-    email= models.EmailField()
-    telefono=models.CharField(max_length=7)
-
-    def __str__(self):
-        return "Nombre: %s "% self.nombre
+from django.conf import settings
 
 class Libros(models.Model):
     titulo= models.CharField(max_length=50)
@@ -30,7 +22,7 @@ class LibroInstancias(models.Model):
     libro = models.ForeignKey('Libros', on_delete=models.SET_NULL, null=True)
     editorial=models.CharField(max_length=50)
     fecha_devolucion = models.DateField(null=True, blank=True)
-    cliente= models.ForeignKey("Clientes", on_delete=models.SET_NULL, null=True, blank=True)
+    cliente= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     biblioteca= models.ForeignKey("Bibliotecas",on_delete=models.SET_NULL,null=True, blank=True)
 
     ESTADO = (
