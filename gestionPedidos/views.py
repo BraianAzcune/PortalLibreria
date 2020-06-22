@@ -1,9 +1,44 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from gestionPedidos.models import LibroInstancias, Libros
 from datetime import date, timedelta
 
+
+
+
+#redireccionador
 @login_required
+def inicio(request):
+    
+    if esBibliotecario(request.user):
+        return redirect('catalogo')
+    elif esLector(request.user):
+        return redirect('misLibros')
+    else:
+        return render(request,"sinPermiso.html")
+
+def esBibliotecario(user):
+    group= getGrupo(user)
+    if group.name == "bibliotecas":
+        return True
+    return False
+
+def esLector(user):
+    group= getGrupo(user)
+    if group.name =="lectores":
+        return True
+    return False
+
+
+def getGrupo(user):
+    return  user.groups.filter(user=user)[0] 
+
+
+def sinPermisos(request):
+    return render(request,"sinPermisos.html")
+#LADO CLIENTE
+@login_required
+@user_passes_test(esLector,login_url='sinPermisos')
 def misLibros(request):
     
     #no seas perezoso y traenos los datos. 
@@ -25,6 +60,7 @@ def misLibros(request):
 
 
 @login_required
+@user_passes_test(esLector,login_url='sinPermisos')
 def buscarLibro(request):
     
 
@@ -52,6 +88,7 @@ def buscarLibro(request):
 
 
 @login_required
+@user_passes_test(esLector,login_url='sinPermisos')
 def guardarReserva(request):
 
     if request.method == 'POST':
@@ -65,3 +102,16 @@ def guardarReserva(request):
         instancia.save()
 
     return redirect('misLibros')
+
+#LADO BIBLIOTECA
+
+@login_required
+@user_passes_test(esBibliotecario,login_url='sinPermisos')
+def catalogo(request):
+
+    return render(request,"biblioteca/catalogo.html")
+
+@login_required
+@user_passes_test(esBibliotecario,login_url='sinPermisos')
+def registrarDevolucion(request):
+    return render(request,"biblioteca/registrarDevolucion.html")
