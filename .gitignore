@@ -24,3 +24,9 @@ __pycache__
 
 #database
 #db.sqlite3
+
+#PYCHARM
+.idea
+#entorno virtual
+venv
+

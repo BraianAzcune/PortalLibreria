@@ -17,7 +17,7 @@ PyRect==0.1.4
 PyScreeze==0.1.26
 PyTweening==1.0.3
 pytz==2020.1
-pywin32==227
+#pywin32==227
 six==1.15.0
 sqlparse==0.3.1
 toml==0.10.1
