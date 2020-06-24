@@ -7,7 +7,7 @@ en linux usar
 luego debe crear un entorno virtual, sin entrar a la carpeta PortalLibreria hacer:
 ```python3 -m venv PortalLibreria```
 
-luego entre al entorno virtual
+luego active al entorno virtual
 ```source PortalLibreria/bin/activate```
 
 finalmente ejecute pip para cargar las dependencias
@@ -16,4 +16,4 @@ finalmente ejecute pip para cargar las dependencias
 para ejecutar el servidor realice
 ```python manage.py runserver 80```
 
-si a cerrado la terminal, para volver a ejecutar necesita entrar al entorno virutal, se hace tal cual en la linea  9
+si a cerrado la terminal, para volver a ejecutar necesita activar el entorno virtual de la misma forma que la primera vez
